@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>横山坞村：传统乡村的现代重生</title>
+<style>
+/* 重置所有元素的默认样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 设置 body 和 html 的高度为 100%，确保整个页面可以填充整个视口 */
+body, html {
+    height: 100%;
+    overflow: hidden; /* 隐藏溢出的内容，防止滚动条出现 */
+    font-family: Arial, sans-serif; /* 设置默认字体 */
+}
+
+/* 定义每个屏幕的基本样式 */
+.screen {
+    position: absolute; /* 使用绝对定位，使每个屏幕覆盖整个视口 */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    opacity: 0; /* 初始透明度为 0 */
+    transform: translateY(100%); /* 初始状态下将屏幕移出视口底部 */
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* 添加过渡效果 */
+}
+
+/* 当屏幕处于激活状态时，设置透明度为 1 并移动到视口中 */
+.screen.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 标题屏幕的样式 */
+.title-screen h1 {
+    font-size: 3em;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 添加文字阴影以提高可读性 */
+}
+
+/* 内容屏幕的样式 */
+.content-screen {
+    background-color: #f4f4f4;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* 允许内容在小屏幕上换行 */
+}
+
+/* 文字容器的样式 */
+.content-screen h2, .content-screen p {
+    max-width: 45%; /* 限制最大宽度，防止内容过宽 */
+    margin: 20px;
+}
+
+/* 视频容器的样式 */
+.video-container {
+    max-width: 45%; /* 限制最大宽度，防止内容过宽 */
+    margin: 20px;
+}
+
+/* 视频的样式 */
+.video-container video {
+    max-width: 100%; /* 确保视频不会超出容器宽度 */
+    height: auto;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+/* 图片屏幕的样式 */
+.image-screen {
+    background-color: #f4f4f4;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* 使图片左右对齐 */
+    align-items: center;
+    height: 100%;
+    overflow-y: auto; /* 允许垂直滚动 */
+}
+
+/* 图片的样式 */
+.image-screen img {
+    max-width: 45%; /* 限制最大宽度，防止内容过宽 */
+    height: auto;
+    margin: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+</style>
+</head>
+<body>
+<div id="screens">
+    <!-- 标题屏幕 -->
+    <div class="screen title-screen active">
+        <h1>横山坞村：传统乡村的现代重生</h1>
+    </div>
+    
+    <!-- 内容屏幕 -->
+    <div class="screen content-screen">
+        <div class="text-container">
+            <h2>横山坞村的介绍</h2>
+            <p>横山坞村位于浙江省安吉县，是中国美丽乡村建设的一个典范。近年来，在乡村振兴战略指导下，横山坞村积极探索传统乡村向现代旅游目的地转型的道路。通过一系列的改造措施，横山坞村不仅保留了传统的乡村风貌，还发展成了一个集休闲、旅游、文化于一体的现代化村落。</p>
+        </div>
+        <div class="video-container">
+            <video controls>
+                <source src="hengshanwu.mp4" type="video/mp4">
+                您的浏览器不支持 video 标签。
+            </video>
+        </div>
+    </div>
+    
+    <!-- 图片屏幕 -->
+    <div class="screen image-screen">
+        <img src="DSC09531.JPG" alt="横山坞村图片1">
+        <img src="DSC09534.JPG" alt="横山坞村图片2">
+    </div>
+</div>
+
+<script>
+// 当前显示的屏幕索引
+let currentIndex = 0;
+
+// 获取所有屏幕元素
+const screens = document.querySelectorAll('.screen');
+
+// 显示指定索引的屏幕
+function showScreen(index) {
+    screens.forEach((screen, i) => {
+        screen.classList.remove('active'); // 移除所有屏幕的 active 类
+        if (i === index) {
+            screen.classList.add('active'); // 为当前屏幕添加 active 类
+        }
+    });
+}
+
+// 监听点击事件，切换到下一个屏幕
+document.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % screens.length; // 计算下一个屏幕的索引
+    showScreen(currentIndex); // 显示下一个屏幕
+});
+
+// 初始化显示第一个屏幕
+showScreen(currentIndex);
+</script>
+</body>
+</html>
